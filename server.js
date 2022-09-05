@@ -72,7 +72,7 @@ function getBookHandler(req,res) {
       else
       {
           console.log(result);
-          res.send(result);
+          res.json(result);
       }
   })
 }
