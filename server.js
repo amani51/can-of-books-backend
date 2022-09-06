@@ -1,4 +1,5 @@
 "use strict";
+
 //------IMPORT SECTIONS-------//
 require("dotenv").config();
 const express = require("express");
@@ -54,6 +55,7 @@ app.get("/test", getTestHandler);
 app.get("/books", getBookHandler);
 app.post("/books", addBookHandler);
 app.delete('/books/:id',deleteBookHandler);
+app.put('/books/:id',updateBookHandler);
 app.get("*", getDefaultHandler);
 
 //------HANDLER SECTIONS-------//
@@ -125,6 +127,32 @@ function deleteBookHandler(req,res){
 
   })
 }
+
+function updateBookHandler(req,res){
+  const id = req.params.id;
+  console.log(id);
+  const {title,description,status} = req.body
+    console.log(req.body);
+    Book.findByIdAndUpdate(id,{title,description,status},(err,result)=>{
+        if(err) {
+            console.log(err);
+        }
+        else {
+          Book.find({},(err,result)=>{
+            if(err)
+            {
+                console.log(err);
+            }
+            else
+            {
+                console.log(result);
+                res.json(result);
+            }
+        })
+        }
+    })
+}
+
 // http://localhost:3001/*
 function getDefaultHandler(req, res) {
   res.status(404).send("SORRY! PAGE IS NOT FOUND");
