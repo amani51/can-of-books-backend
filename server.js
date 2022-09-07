@@ -28,6 +28,7 @@ async function seedData() {
     description:
       "The Quran, also romanized Qur'an or Koran, is the central religious text of Islam, believed by Muslims to be a revelation from God. It is organized into 114 chapters, which consist of verses",
     status: "Favorite Five",
+    email: process.env.email
   });
 
   const secondBook = new Book({
@@ -35,6 +36,7 @@ async function seedData() {
     description:
       "Published in 1983 this book is a biography of Messenger Mohammad PBUH. The Book revolves around old Arab sources that go back to the 9th century, and some of the chapters are translated for the first time. So the book offers new insights and details. The biography contains 85 chapters and is translated into many languages.",
     status: "Favorite Five",
+    email: process.env.email
   });
 
   const thirdBook = new Book({
@@ -42,6 +44,7 @@ async function seedData() {
     description:
       "The book is a collection of stories from people regarding treating our parents with respect and honor. Abdul Malik Mujahid details our duties and obligations to our parents in the light of Sunnah who has sacrificed to raise and educate us.",
     status: "Recommended To Me",
+    email: process.env.email
   });
 
   await firstBook.save();
@@ -69,10 +72,10 @@ function getHomeHandler(req, res) {
 function getTestHandler(request, response) {
   response.send("test request received");
 }
-// JSON.stringify([1, 2, 3, 4, 5])
 // http://localhost:3001/books
 function getBookHandler(req,res) {
-  Book.find({},(err,result)=>{
+  console.log("req.query.email",req.query.email)
+  Book.find({email:req.query.email},(err,result)=>{
       if(err)
       {
           console.log(err);
@@ -88,14 +91,15 @@ function getBookHandler(req,res) {
 // http://localhost:3001/books // addBooks
 // http://localhost:3001/books?title=vghv&description=jhjiu&status=ljhbgjb
 async function addBookHandler(req,res){
-  console.log(req.body)
-  const {title,description,status} = req.body
+  console.log(req.body.email)
+  const {title,description,status,email} = req.body
  await Book.create({
     title: title,
     description:description,
     status:status ,
+    email:email
   })
-  Book.find({},(err,result)=>{
+  Book.find({email:email},(err,result)=>{
     if(err)
     {
         console.log(err);
@@ -110,10 +114,11 @@ async function addBookHandler(req,res){
 
 function deleteBookHandler(req,res){
   const bookId = req.params.id;
-  console.log(bookId)
+  console.log("req.params",req.params)
+  // const email=req.query
+  console.log("email",req.query.email)
   Book.deleteOne({_id:bookId},(err,result)=>{
-      
-    Book.find({},(err,result)=>{
+    Book.find({email:req.query.email},(err,result)=>{
       if(err)
       {
           console.log(err);
@@ -130,15 +135,14 @@ function deleteBookHandler(req,res){
 
 function updateBookHandler(req,res){
   const id = req.params.id;
-  console.log(id);
-  const {title,description,status} = req.body
+  const {title,description,status,email} = req.body
     console.log(req.body);
-    Book.findByIdAndUpdate(id,{title,description,status},(err,result)=>{
+    Book.findByIdAndUpdate(id,{title,description,status,email},(err,result)=>{
         if(err) {
             console.log(err);
         }
         else {
-          Book.find({},(err,result)=>{
+          Book.find({email:email},(err,result)=>{
             if(err)
             {
                 console.log(err);
