@@ -153,3 +153,42 @@ Start time: 2:00 pm
 Finish time: 2:50 pm 
 
 Actual time needed to complete: 50 min 
+-----------
+## class 14
+#  Can of Books App
+
+**Author**: Amani AL-Zoubi & Wala'a Attia
+**Version**: 1.0.3
+
+## Overview
+Books are life-changing. They have the power to enlighten, educate, entertain, heal, and help us grow. Build out this code base to create an web app to track what books have impacted you, and what's recommended to read next.
+## Getting Started
+1. Create my own server
+2. Create FrontEnd
+3. Create a DataBase (MongoDB)
+4. Connect server with DataBase to send a request and send a response to APP
+5. from the FE side send a request to the server on the route books
+6. Create a form that allows user to add a book with our books 
+7. allow user to delete any book from slides
+8. Allow user to update any book slides directly 
+9. Allow user to create account and display only his/her books list
+
+## Architecture
+Geting Date and render it by using React bootstrap carousel slides , allow user to add data to database and delete any data by its id 
+![wrrc](/class%2014.png)
+
+## Change Log
+
+
+07-09-2022 10:00pm - Application now has a fully-functional express server, with a GET route for the location resource. 
+
+## Estimates
+Name of feature: Authentication
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 5:30 pm 
+
+Finish time: 10:25 pm 
+
+Actual time needed to complete: within approximately 5 hours 
